@@ -1,0 +1,28 @@
+/* Mẫu "Sổ tình yêu chung" — giấy kem, gáy sổ hồng đất, chữ viết tay */
+.theme-so-tay {
+  --card-bg: radial-gradient(circle at 15% 10%, #ffe6dc 0, transparent 45%), radial-gradient(circle at 90% 90%, #f9e3d0 0, transparent 50%), #fbf3ea;
+  --tt-accent: #d9506f;
+  --tt-wine: #4a2430;
+}
+
+.st-book { justify-content: flex-start; gap: 16px; padding: 70px 14px 24px; }
+.st-cover { width: min(440px, 100%); padding: 22px 18px; border-radius: 6px 22px 22px 6px; background: linear-gradient(135deg, #e2738c, #c4506b); color: #fff; box-shadow: inset 10px 0 0 rgba(0, 0, 0, 0.12), 0 18px 34px -16px rgba(74, 36, 48, 0.6); text-align: center; }
+.st-cover-emoji { font-size: 2.4rem; }
+.st-title { margin: 6px 0 4px; color: #fff; font-family: var(--hand); font-size: clamp(1.8rem, 8vw, 2.4rem); line-height: 1.2; overflow-wrap: anywhere; }
+.st-names { margin: 0; font-weight: 700; opacity: 0.95; }
+.st-days { margin: 8px 0 0; display: inline-block; padding: 4px 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.2); font-weight: 700; }
+
+.st-pages { width: min(440px, 100%); display: grid; gap: 14px; }
+.st-page { position: relative; padding: 14px 16px 16px 22px; border-radius: 4px 16px 16px 4px; text-align: left; background: repeating-linear-gradient(180deg, #fffdf8 0 31px, #f1e6da 31px 32px); box-shadow: 0 10px 22px -14px rgba(74, 36, 48, 0.45); animation: st-in 0.5s ease both; }
+.st-page::before { content: ""; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: #f2b8c4; }
+.st-page.from-nhan { border-radius: 16px 4px 4px 16px; }
+@keyframes st-in { from { opacity: 0; transform: translateY(14px) rotate(-0.6deg); } }
+.st-page-head { display: flex; justify-content: space-between; gap: 8px; font-size: 0.8rem; color: var(--muted); margin-bottom: 6px; }
+.st-page-no { font-weight: 800; color: var(--tt-accent); }
+.st-photo { display: block; width: 100%; max-height: 360px; object-fit: cover; border-radius: 10px; margin: 4px 0 8px; box-shadow: 0 6px 14px -8px rgba(0, 0, 0, 0.4); }
+.st-text { margin: 0; font-family: var(--hand); font-size: 1.35rem; line-height: 32px; color: var(--ink); white-space: pre-line; overflow-wrap: anywhere; }
+.st-text:empty { display: none; }
+
+.st-write { width: min(440px, 100%); display: grid; gap: 8px; padding: 16px; border-radius: 20px; background: rgba(255, 255, 255, 0.92); box-shadow: 0 14px 30px -18px rgba(0, 0, 0, 0.35); text-align: left; }
+.st-write h2 { margin: 0; font-size: 1.15rem; }
+.st-write p { margin: 0; }

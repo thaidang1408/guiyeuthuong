@@ -1,0 +1,33 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' blob: data: https://vietqr.app; media-src 'self' blob:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'
+
+/thiep
+  X-Robots-Tag: noindex, nofollow
+
+/xem-truoc
+  X-Robots-Tag: noindex
+
+/tao
+  X-Robots-Tag: noindex
+
+/thanh-toan*
+  X-Robots-Tag: noindex
+  Referrer-Policy: no-referrer
+
+/quan-ly*
+  X-Robots-Tag: noindex
+  Referrer-Policy: no-referrer
+
+/admin*
+  X-Robots-Tag: noindex, nofollow
+  Referrer-Policy: no-referrer
+
+/thiep-cua-toi
+  X-Robots-Tag: noindex, nofollow
+  Referrer-Policy: no-referrer
+
+/ky*
+  X-Robots-Tag: noindex, nofollow
+  Referrer-Policy: no-referrer

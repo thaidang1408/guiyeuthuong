@@ -1,0 +1,10 @@
+# Copy file này thành .dev.vars khi chạy ở máy (hoặc chạy: npm run cau-hinh). KHÔNG đưa .dev.vars lên git.
+SEPAY_WEBHOOK_KEY=khoa-thu-o-may
+SEPAY_ACC=0000000000
+SEPAY_BANK=MBBank
+# API Access của SePay (không bắt buộc): tự đối soát khi webhook không tới
+SEPAY_API_TOKEN=
+ADMIN_PASSWORD=doi-mat-khau-nay
+SUPPORT_ZALO=0900000000
+# 1 = hiện nút "Giả lập tiền về" trên trang thanh toán. Chỉ có tác dụng khi chạy ở máy.
+DEV_SIMULATE_PAYMENT=1

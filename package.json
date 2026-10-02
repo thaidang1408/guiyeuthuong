@@ -1,0 +1,22 @@
+{
+  "name": "guiyeuthuong",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler pages dev",
+    "db:migrate:local": "wrangler d1 migrations apply DB --local",
+    "db:migrate:remote": "wrangler d1 migrations apply DB --remote",
+    "test": "node --test \"tests/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit",
+    "gia-lap": "node scripts/gia-lap-webhook.mjs",
+    "cau-hinh": "node scripts/cau-hinh-sepay.mjs",
+    "deploy": "npm test && wrangler d1 migrations apply DB --remote && wrangler pages deploy --branch main --commit-dirty=true",
+    "dat-mat-khau-admin": "wrangler pages secret put ADMIN_PASSWORD --project-name guiyeuthuong"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20261001.1",
+    "qrcode-generator": "1.5.2",
+    "typescript": "7.0.2",
+    "wrangler": "4.145.0"
+  }
+}

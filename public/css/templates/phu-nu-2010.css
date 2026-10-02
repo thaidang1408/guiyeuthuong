@@ -1,0 +1,101 @@
+/* Mẫu "Gửi người phụ nữ đặc biệt" (20/10) — hồng phấn, đỏ hoa hồng, xanh lá mạ (hoa và lá) */
+.theme-phu-nu-2010 {
+  --card-bg: radial-gradient(circle at 15% 10%, #ffe4e8 0, transparent 45%), radial-gradient(circle at 85% 90%, #e8f3ec 0, transparent 50%), #fff6f5;
+  --tt-accent: #d1495b;
+  --tt-wine: #4a2c2a;
+  --pn-leaf: #6a994e;
+}
+
+/* Hoa rơi phía sau lá thư để không che chữ khi đang đọc */
+.fx-petals { z-index: 0; }
+
+/* --- Phong bì --- */
+.pn-cover { gap: 18px; }
+.pn-envelope {
+  position: relative;
+  width: min(300px, 82vw);
+  aspect-ratio: 3 / 2;
+  border: 0;
+  padding: 0;
+  background: #f6d5d7;
+  border-radius: 10px;
+  box-shadow: 0 18px 40px rgba(74, 44, 42, 0.18);
+  cursor: pointer;
+  animation: pn-float 3s ease-in-out infinite;
+  font: inherit;
+  perspective: 800px;
+}
+@keyframes pn-float { 50% { transform: translateY(-8px); } }
+/* Lá thư bên trong (thò lên khi mở) */
+.pn-letter-peek {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 10%;
+  bottom: 8%;
+  background: #fffdf8;
+  border-radius: 6px;
+  transition: transform 0.7s ease 0.35s;
+}
+/* Túi phong bì phía trước: kín, chỉ khoét chữ V ở trên (nắp che chỗ khoét khi chưa mở) */
+.pn-pocket {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: linear-gradient(to bottom, #f4c9cc, #efbcc0);
+  clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 100%, 0 100%);
+  z-index: 2;
+}
+/* Nắp phong bì */
+.pn-flap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 58%;
+  background: #eaa8ae;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center;
+  transition: transform 0.6s ease;
+  z-index: 3;
+}
+.pn-seal {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  transform: translate(-50%, -50%);
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--tt-accent);
+  font-size: 1.4rem;
+  z-index: 4;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: opacity 0.3s ease;
+}
+.pn-to {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12%;
+  z-index: 3;
+  font-family: var(--hand);
+  font-size: 1.35rem;
+  color: var(--tt-wine);
+  padding: 0 12px;
+  overflow-wrap: anywhere;
+}
+.pn-envelope.open { animation: none; }
+.pn-envelope.open .pn-seal { opacity: 0; }
+.pn-envelope.open .pn-flap { transform: rotateX(180deg); z-index: 1; }
+.pn-envelope.open .pn-letter-peek { transform: translateY(-45%); }
+.pn-hint { color: var(--muted); min-height: 1.5em; }
+
+/* --- Nội dung thư --- */
+.pn-content { justify-content: flex-start; gap: 22px; max-width: 520px; margin: 0 auto; }
+.pn-title { font-family: var(--hand); font-size: clamp(2.1rem, 9vw, 3rem); color: var(--tt-accent); margin: 0; overflow-wrap: anywhere; }
+.pn-content .tt-letter { border-top: 4px solid var(--pn-leaf); }
+.pn-hidden { opacity: 0; }
+

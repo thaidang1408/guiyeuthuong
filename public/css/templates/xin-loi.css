@@ -1,0 +1,27 @@
+/* Mẫu "Tha lỗi cho tớ nhé" — vàng kem dịu, cam đào, nâu ấm (mềm mỏng, đáng thương) */
+.theme-xin-loi {
+  --card-bg: radial-gradient(circle at 80% 12%, #ffe8c2 0, transparent 45%), radial-gradient(circle at 10% 85%, #ffd8cc 0, transparent 50%), #fff8ec;
+  --tt-accent: #f07167;
+  --tt-wine: #5c3d2e;
+}
+
+.xl-buttons { display: flex; gap: 18px; align-items: center; justify-content: center; flex-wrap: wrap; min-height: 140px; }
+.xl-yes {
+  background: var(--tt-accent);
+  color: #fff;
+  font-size: 1.2rem;
+  min-width: 130px;
+  min-height: 56px;
+  box-shadow: 0 8px 22px rgba(240, 113, 103, 0.4);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.xl-no {
+  background: #fff;
+  color: var(--tt-wine);
+  border: 1.5px solid #f2d7c9;
+  font-size: 1.05rem;
+  min-height: 52px;
+  max-width: 220px;
+  transition: transform 0.3s ease, opacity 0.4s ease;
+}
+.xl-no.gone { opacity: 0; transform: scale(0) !important; pointer-events: none; }

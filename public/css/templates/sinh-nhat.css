@@ -1,0 +1,48 @@
+/* Mẫu "Chúc mừng sinh nhật" — kem dâu, vàng bơ, xanh bạc hà (ngọt ngào như bánh kem) */
+.theme-sinh-nhat {
+  --card-bg: radial-gradient(circle at 80% 10%, #ffe9a8 0, transparent 45%), radial-gradient(circle at 15% 85%, #ffd3e0 0, transparent 50%), #fffaf2;
+  --tt-accent: #ef476f;
+  --tt-wine: #4a2c3a;
+}
+.sn-screen { gap: 18px; }
+.sn-cake { position: relative; width: 240px; padding-top: 70px; }
+.sn-candles { position: absolute; left: 16px; right: 16px; top: 0; height: 80px; display: flex; justify-content: space-evenly; align-items: flex-end; z-index: 2; }
+.sn-candle {
+  position: relative;
+  width: 14px;
+  height: 46px;
+  border: 0;
+  border-radius: 4px 4px 2px 2px;
+  background: repeating-linear-gradient(135deg, #fff 0 6px, #7ad7c7 6px 12px);
+  cursor: pointer;
+  padding: 0;
+}
+.sn-candle::before { content: ""; position: absolute; inset: -22px -14px 0; } /* vùng chạm rộng hơn cho ngón tay */
+.sn-flame {
+  position: absolute;
+  left: 50%;
+  top: -26px;
+  width: 14px;
+  height: 22px;
+  margin-left: -7px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  background: radial-gradient(circle at 50% 70%, #fff7c2, #ffb703 55%, #fb8500);
+  box-shadow: 0 0 16px 6px rgba(255, 183, 3, 0.45);
+  animation: sn-flicker 0.18s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * -0.05s);
+}
+.sn-candle.out .sn-flame { animation: sn-out 0.5s ease forwards; }
+.sn-candle.out::after { content: "💨"; position: absolute; left: 50%; top: -40px; transform: translateX(-50%); font-size: 18px; animation: sn-smoke 1s ease forwards; }
+@keyframes sn-flicker { to { transform: scale(0.9, 1.08) rotate(3deg); } }
+@keyframes sn-out { to { transform: scale(0); opacity: 0; } }
+@keyframes sn-smoke { to { transform: translate(-50%, -30px); opacity: 0; } }
+.sn-layer { position: relative; border-radius: 14px; }
+.sn-top { height: 70px; margin: 0 16px; background: linear-gradient(#ffc8dd, #ffafcc); box-shadow: inset 0 10px 0 #fff0f5; display: grid; place-items: center; }
+.sn-bottom { height: 80px; margin-top: -6px; background: linear-gradient(#fff3c4, #ffe08a); box-shadow: inset 0 10px 0 #fffaf0; }
+.sn-plate { height: 14px; margin: -4px -14px 0; border-radius: 50%; background: #e9e4f0; }
+.sn-age { font-family: var(--hand); font-size: 2.2rem; color: #c9184a; }
+.sn-hint { margin: 0; min-height: 1.5em; font-weight: 600; color: var(--tt-wine); }
+.sn-wish { gap: 22px; }
+.sn-wish-icon { font-size: 72px; animation: tt-bob 2.2s ease-in-out infinite; }
+.sn-wish-text { font-size: clamp(1.25rem, 5.5vw, 1.6rem); font-weight: 700; color: var(--tt-wine); max-width: 360px; margin: 0; overflow-wrap: anywhere; }
+.sn-age-line { margin: 0; font-weight: 700; color: var(--tt-wine); }

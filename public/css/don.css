@@ -1,0 +1,104 @@
+/* Trang thanh toán và trang quản lý */
+.page-header { padding: 14px 16px; }
+.logo { font-weight: 800; color: var(--wine); text-decoration: none; font-size: 1.1rem; }
+.page-main { max-width: 520px; margin: 0 auto; padding: 0 16px 48px; }
+.page-main > h1 { font-size: 1.6rem; margin-top: 4px; }
+.lead { font-size: 1.05rem; }
+
+.panel { background: var(--paper); border-radius: var(--radius); padding: 18px 16px; margin: 16px 0; box-shadow: 0 4px 16px rgba(74, 26, 44, 0.06); }
+.panel h2 { font-size: 1.15rem; }
+.panel h3 { font-size: 1rem; margin-top: 18px; }
+.panel-warn { background: #fff8e6; box-shadow: none; border: 1.5px dashed #f0c96a; }
+
+.share-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.share-actions .btn { flex: 1 1 140px; white-space: nowrap; padding-inline: 1em; }
+
+/* Chọn gói */
+.plan-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+.plan-chip {
+  display: grid;
+  gap: 2px;
+  padding: 12px;
+  border-radius: 16px;
+  border: 2px solid var(--line);
+  background: var(--paper);
+  font: inherit;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+.plan-chip.selected { border-color: var(--coral); background: #fff4f2; }
+.plan-chip-name { font-weight: 700; color: var(--wine); }
+.plan-chip-price { font-size: 1.25rem; font-weight: 800; color: var(--coral-dark); }
+.plan-chip-desc { font-size: 0.8rem; color: var(--muted); }
+
+/* QR chuyển khoản */
+.qr-panel { display: flex; flex-direction: column; align-items: center; }
+.pay-qr { width: 100%; max-width: 300px; height: auto; aspect-ratio: 1; border-radius: 12px; background: var(--cream); }
+/* Nhãn nhỏ nằm trên, giá trị to bên dưới: số tài khoản dài không bị ngắt dòng */
+.info-row { display: grid; grid-template-columns: 1fr auto; grid-template-areas: 'label btn' 'value btn'; align-items: center; column-gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.info-row > span:first-child { grid-area: label; font-size: 0.8rem; }
+.info-row strong { grid-area: value; color: var(--wine); font-size: 1.1rem; letter-spacing: 0.02em; overflow-wrap: anywhere; }
+.info-row > :last-child { grid-area: btn; }
+.warn { color: #9a5b00; margin: 12px 0 0; }
+
+.waiting { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; color: var(--wine); font-weight: 600; text-align: center; }
+.spinner { width: 20px; height: 20px; flex: none; border-radius: 50%; border: 3px solid var(--peach); border-top-color: var(--coral); animation: spin 0.9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.countdown { font-weight: 700; color: var(--wine); }
+
+/* Mã QR của link thiệp */
+.qr-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.link-qr { width: 220px; height: auto; border-radius: 12px; border: 1px solid var(--line); }
+
+/* Trang quản lý */
+.badge-ok { background: #dff5e3; color: #1d6b34; }
+.badge-wait { background: #fff1c9; color: #8a5a00; }
+.badge-off { background: #eee; color: #666; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 16px 0; }
+.stat { background: var(--paper); border-radius: 14px; padding: 12px 8px; text-align: center; display: grid; }
+.stat strong { font-size: 1.2rem; color: var(--wine); }
+
+/* Khung chế độ thử (chỉ ở máy) */
+.dev-panel { background: #eef7ff; border: 1.5px dashed #7fb2e5; box-shadow: none; }
+
+/* Combo */
+.combo-panel { border: 2px solid var(--coral); }
+.combo-code { font-size: 1.6rem; font-weight: 800; letter-spacing: 0.08em; color: var(--wine); text-align: center; background: var(--cream); border-radius: 12px; padding: 10px; margin: 8px 0; font-variant-numeric: tabular-nums; }
+.plan-switch { grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); }
+
+/* Câu trả lời (mẫu "Đi chơi") */
+.answer-list { display: grid; gap: 10px; }
+.answer-item { border: 1.5px solid var(--line); border-radius: 14px; padding: 10px 12px; }
+.answer-item p { margin: 0 0 4px; }
+.answer-main { overflow-wrap: anywhere; }
+.answer-note { font-style: italic; overflow-wrap: anywhere; }
+.sticker-row .chip { font-size: 1.4rem; min-width: 52px; }
+.sig-item .btn { justify-self: start; }
+.reactions p { margin: 6px 0; }
+.qr-styles { justify-content: center; }
+.qr-preview { display: grid; place-items: center; }
+.link-qr.heart { width: 260px; border: 0; box-shadow: 0 10px 24px rgba(229, 72, 122, 0.25); }
+
+.guarantee { color: #1f8f57; font-weight: 600; }
+.refund-panel summary { cursor: pointer; font-weight: 700; }
+
+/* Khung lưu link quản lý: nhấp nháy viền cho tới khi người tạo bấm "Mình đã lưu rồi" */
+.manage-save.unsaved { animation: save-pulse 1.8s ease-in-out infinite; }
+@keyframes save-pulse { 50% { box-shadow: 0 0 0 4px rgba(255, 92, 120, 0.35); } }
+.manage-save .tip { background: rgba(255, 255, 255, 0.6); padding: 8px 10px; border-radius: 10px; }
+.saved-ok { color: #1f8f57; font-weight: 600; margin: 8px 0 0; }
+.my-card h2 { margin-top: 0; }
+
+/* Trang hỗ trợ: mời ly cà phê */
+.coffee-panel { text-align: center; }
+.coffee-qr { display: block; width: 100%; max-width: 260px; height: auto; margin: 8px auto; border-radius: 16px; box-shadow: 0 4px 16px rgba(74, 26, 44, 0.1); }
+
+.reaction-video { display: grid; gap: 10px; }
+.reaction-video video { width: 100%; max-height: 70vh; border-radius: 14px; background: #000; }
+.panel audio { width: 100%; }
+
+/* Gợi ý nâng gói (trang thanh toán, trang quản lý) */
+.upsell-panel { display: grid; gap: 6px; border: 1.5px dashed #f0b44c; background: linear-gradient(160deg, #fff9ea, #fff1ee); }
+.upsell-panel p, .upsell-panel ul { margin: 0; }
+.upsell-panel .btn { justify-self: start; }

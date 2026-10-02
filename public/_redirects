@@ -1,0 +1,4 @@
+# Trang tĩnh dùng chung cho mọi mã đơn / mọi thiệp (trình duyệt tự đọc mã trên đường dẫn).
+/thanh-toan/*  /thanh-toan  200
+/quan-ly/*     /quan-ly     200
+/ky/* /ky 200

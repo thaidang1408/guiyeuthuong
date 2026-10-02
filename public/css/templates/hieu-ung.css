@@ -1,0 +1,12 @@
+/* Thiệp hiệu ứng (vũ trụ, trái tim hạt sáng, tên bằng sao, trái tim kỷ niệm) — hồng đêm ấm */
+.theme-vu-tru,
+.theme-tim-sang,
+.theme-ten-sao,
+.theme-tim-anh {
+  --card-bg: radial-gradient(circle at 15% 10%, #ffd9e2 0, transparent 45%), radial-gradient(circle at 85% 85%, #ffe2c7 0, transparent 50%), #fff1ee;
+  --tt-accent: #ff4d6d;
+  --tt-wine: #4a1430;
+}
+
+.tt-fx-end { gap: 18px; }
+.fx-replay { align-self: center; }

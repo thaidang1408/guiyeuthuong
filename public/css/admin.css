@@ -1,0 +1,30 @@
+/* Trang quản trị: gọn, dễ bấm trên điện thoại */
+.admin-main { max-width: 720px; }
+.admin-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.admin-login { max-width: 360px; margin: 10vh auto 0; }
+.admin-login form { display: grid; gap: 12px; }
+.admin-search { display: flex; gap: 8px; }
+.admin-search .input { flex: 1; min-width: 0; }
+.admin-list { display: grid; gap: 10px; margin-top: 10px; }
+.admin-item { border: 1.5px solid var(--line); border-radius: 14px; padding: 12px; display: grid; gap: 6px; background: #fff; }
+.admin-item-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.admin-item-head strong { font-size: 1.05rem; color: var(--wine); }
+.admin-item .meta { font-size: 0.85rem; color: var(--muted); overflow-wrap: anywhere; }
+.admin-item .quote { font-size: 0.9rem; background: var(--cream); border-radius: 10px; padding: 8px 10px; overflow-wrap: anywhere; white-space: pre-wrap; }
+.admin-actions { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.admin-actions .input { width: 9.5em; min-height: 40px; }
+.admin-empty { color: var(--muted); font-size: 0.9rem; margin: 6px 0 0; }
+.admin-count { display: inline-grid; place-items: center; min-width: 1.6em; height: 1.6em; padding: 0 6px; border-radius: 99px; background: var(--coral); color: #fff; font-size: 0.8rem; margin-left: 6px; vertical-align: middle; }
+.badge-bad { background: #ffe0e0; color: #a12a2a; }
+.stats .stat span { font-size: 0.8rem; color: var(--muted); }
+.admin-top { margin: 8px 0; }
+.admin-top h1 { font-size: 1.45rem; margin: 0; white-space: nowrap; }
+.admin-top .admin-actions { flex-wrap: nowrap; }
+
+/* Đồng hồ lượt giao dịch SePay */
+.sepay-meter .meter-bar { height: 10px; border-radius: 999px; background: #f3e4e0; overflow: hidden; margin: 6px 0; }
+.sepay-meter .meter-bar span { display: block; height: 100%; background: #3fb37f; border-radius: inherit; }
+.sepay-meter.warn { border: 2px solid #f0b429; }
+.sepay-meter.warn .meter-bar span { background: #f0b429; }
+.sepay-meter.full { border: 2px solid #e5484d; background: #fff1f1; }
+.sepay-meter.full .meter-bar span { background: #e5484d; }

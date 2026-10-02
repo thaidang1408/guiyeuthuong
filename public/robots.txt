@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /t/
+Disallow: /quan-ly
+Disallow: /thanh-toan
+Disallow: /admin
+Disallow: /ky
+Disallow: /api/
+Disallow: /xem-truoc
+Disallow: /tao
+
+Sitemap: https://guiyeuthuong.pages.dev/sitemap.xml

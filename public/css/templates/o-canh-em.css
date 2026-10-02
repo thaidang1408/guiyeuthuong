@@ -1,0 +1,89 @@
+/* Mẫu "Muốn ở cạnh em" — hồng đào ấm, đỏ hồng, nâu rượu (dịu, thân mật như một buổi tối bên nhau) */
+.theme-o-canh-em {
+  --card-bg: radial-gradient(circle at 20% 15%, #ffd9df 0, transparent 50%), radial-gradient(circle at 85% 85%, #ffe6d5 0, transparent 50%), #fff5f3;
+  --tt-accent: #e5487a;
+  --tt-wine: #4b2236;
+}
+
+/* --- Màn "ôm" --- */
+.oc-hug { --p: 0; gap: 28px; }
+.oc-hint { font-size: clamp(1.25rem, 5.5vw, 1.6rem); font-weight: 700; color: var(--tt-wine); margin: 0; min-height: 2.6em; max-width: 340px; overflow-wrap: anywhere; }
+.oc-pad {
+  position: relative;
+  width: min(340px, 88vw);
+  height: 220px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 2px dashed #f4b6c6;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+}
+.oc-pad.holding { background: #fff; border-color: var(--tt-accent); transform: scale(0.985); }
+.oc-pad:focus-visible { outline: 3px solid var(--tt-accent); outline-offset: 4px; }
+.oc-pad-label { position: absolute; left: 0; right: 0; bottom: 14px; font-size: 0.85rem; color: var(--muted); transition: opacity 0.3s ease; }
+.oc-pad.holding .oc-pad-label { opacity: 0; }
+.oc-track { position: absolute; inset: 0; }
+/* Hai tim: bắt đầu ở hai mép, --p (0 → 1) kéo chúng vào giữa */
+.oc-heart {
+  position: absolute;
+  top: 50%;
+  font-size: 54px;
+  line-height: 1;
+  transform: translate(-50%, -60%) scale(calc(1 + var(--p) * 0.25));
+  will-change: left, transform;
+}
+.oc-left { left: calc(16% + var(--p) * 26%); }
+.oc-right { left: calc(84% - var(--p) * 26%); }
+.oc-track.beat .oc-heart { animation: oc-beat 0.32s ease; }
+@keyframes oc-beat { 40% { font-size: 62px; } }
+.oc-glow {
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(calc(0.3 + var(--p) * 0.9));
+  background: radial-gradient(circle, rgba(229, 72, 122, 0.35), transparent 70%);
+  opacity: var(--p);
+}
+/* Chạm nhau: hòa làm một tim lớn đập đều */
+.oc-hug.met .oc-left, .oc-hug.met .oc-right { left: 50%; transition: transform 0.6s ease; transform: translate(-50%, -60%) scale(1.9); }
+.oc-hug.met .oc-right { opacity: 0; }
+.oc-hug.met .oc-left { animation: oc-pulse 1.1s ease-in-out infinite; }
+.oc-hug.met .oc-glow { opacity: 1; transform: translate(-50%, -50%) scale(1.6); }
+.oc-hug.met .oc-pad { border-color: transparent; background: rgba(255, 255, 255, 0.85); }
+@keyframes oc-pulse { 50% { transform: translate(-50%, -60%) scale(2.15); } }
+
+/* --- Phần sau khi ôm --- */
+.oc-counter { background: #fff; border-radius: 20px; padding: 18px 16px; box-shadow: 0 10px 28px rgba(75, 34, 54, 0.1); }
+.oc-label { margin: 0; color: var(--muted); }
+.oc-days { margin: 4px 0; font-size: clamp(2.2rem, 11vw, 3rem); font-weight: 800; color: var(--tt-accent); font-variant-numeric: tabular-nums; }
+.oc-detail { margin: 0; font-size: 0.95rem; color: var(--tt-wine); font-variant-numeric: tabular-nums; }
+.oc-reasons { text-align: left; }
+.oc-reasons-title { font-family: var(--hand); font-size: 1.9rem; color: var(--tt-accent); margin: 0 0 8px; text-align: center; overflow-wrap: anywhere; }
+.oc-reasons ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.oc-reason {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: #fff;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 1.05rem;
+  color: var(--tt-wine);
+  box-shadow: 0 4px 14px rgba(75, 34, 54, 0.07);
+  overflow-wrap: anywhere;
+  opacity: 0;
+  transform: translateX(-14px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.oc-reason.shown { opacity: 1; transform: none; }
+.oc-meet { display: flex; gap: 10px; align-items: center; justify-content: center; background: var(--tt-wine); color: #fff; border-radius: 18px; padding: 14px 16px; }
+.oc-meet-icon { font-size: 1.6rem; }
+.oc-meet-text { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+

@@ -1,0 +1,27 @@
+/* Trang công cụ miễn phí: đếm ngày yêu, chữ rơi */
+.tool-hero { text-align: center; padding: 18px 0 6px; }
+.tool-names { font-size: clamp(2rem, 9vw, 2.6rem); color: var(--coral-dark, #c9184a); margin: 0; overflow-wrap: anywhere; }
+.tool-big { font-size: clamp(2.6rem, 13vw, 3.6rem); font-weight: 800; color: var(--wine); margin: 0; font-variant-numeric: tabular-nums; }
+.tool-detail { margin: 0; font-variant-numeric: tabular-nums; color: var(--wine); }
+.tool-upsell { border: 2px solid var(--coral); }
+.tool-page .site-footer { text-align: center; padding: 20px 16px 40px; }
+
+/* Mưa chữ */
+.rain-mode { background: #1a0b14; color: #fff; }
+.rain-mode .page-header, .rain-mode .site-footer { position: relative; z-index: 2; }
+.rain-mode .logo, .rain-mode .site-footer a { color: #ffd6e0; }
+.rain-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; }
+.rain-center { position: relative; z-index: 1; min-height: 70vh; display: grid; place-content: center; text-align: center; gap: 12px; }
+.rain-name { font-size: 2rem; margin: 0; color: #ffc2d1; overflow-wrap: anywhere; }
+.rain-text {
+  font-size: clamp(2.4rem, 12vw, 4rem);
+  margin: 0;
+  color: #fff;
+  text-shadow: 0 0 18px #ff4d8d, 0 0 42px #ff4d8d;
+  overflow-wrap: anywhere;
+  animation: rain-glow 2.4s ease-in-out infinite;
+}
+@keyframes rain-glow { 50% { text-shadow: 0 0 26px #ff85b3, 0 0 70px #ff4d8d; transform: scale(1.03); } }
+.rain-actions { justify-content: center; }
+.rain-upsell { margin-top: 18px; background: rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 12px; backdrop-filter: blur(4px); }
+.rain-upsell p { margin: 0 0 8px; color: #ffe3ea; }
