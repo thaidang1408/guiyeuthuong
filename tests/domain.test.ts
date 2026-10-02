@@ -129,3 +129,12 @@ describe('kiểm tra dữ liệu thiệp', () => {
     assert.throws(() => validateCardData('khong-co', valid), /không tồn tại/);
   });
 });
+
+describe('Địa chỉ chính thức', () => {
+  it('link phiên bản (có mã phía trước) chuyển về guiyeuthuong.pages.dev, giữ đường dẫn và phần #', async () => {
+    const { canonicalUrl } = await import('../public/js/shared/site.js');
+    assert.equal(canonicalUrl('https://095f7b5a.guiyeuthuong.pages.dev/quan-ly/abc#token'), 'https://guiyeuthuong.pages.dev/quan-ly/abc#token');
+    assert.equal(canonicalUrl('https://main.guiyeuthuong.pages.dev/?x=1'), 'https://guiyeuthuong.pages.dev/?x=1');
+    for (const ok of ['https://guiyeuthuong.pages.dev/', 'http://127.0.0.1:8790/', 'https://evilguiyeuthuong.pages.dev/']) assert.equal(canonicalUrl(ok), null, ok);
+  });
+});

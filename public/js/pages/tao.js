@@ -16,6 +16,7 @@ import { FONTS, defaultFont, fontStack } from '../shared/fonts.js';
 import { loadAllFonts } from '../core/fonts.js';
 import { voiceRecorder } from '../card/voice.js';
 import { formatOpenAt, openAtMs, toOpenAt } from '../shared/schedule.js';
+import { STICKERS, STICKER_MAX, stickerSrc } from '../shared/stickers.js';
 
 const templateId = new URLSearchParams(location.search).get('mau');
 const tpl = TEMPLATES[templateId];
@@ -553,8 +554,47 @@ function stepMusic() {
       class: 'muted small',
       text: 'Nhạc tự tải lên: chỉ dùng bài bạn có quyền sử dụng. Bài nhạc chỉ phát trong thiệp, người nhận không tải về được.',
     }),
+    stickerPicker(),
     effectsSection(),
     specialOptions(),
+  ]);
+}
+
+/** Chọn tối đa 3 sticker động; số 1–2–3 là thứ tự bật ra trong thiệp. Chạm sticker là xem nó động. */
+function stickerPicker() {
+  const d = draft.data;
+  d.stickers ??= [];
+  const grid = el('div', { class: 'stk-grid' });
+  const note = el('p', { class: 'muted small' });
+  const render = () => {
+    grid.replaceChildren(
+      ...STICKERS.map((s) => {
+        const order = d.stickers.indexOf(s.id) + 1;
+        const btn = el('button', { class: 'stk-pick' + (order ? ' selected' : ''), attrs: { type: 'button', 'aria-pressed': String(!!order) } }, [
+          el('img', { attrs: { src: stickerSrc(s.id, !order), alt: '', width: '56', height: '56', loading: 'lazy' } }),
+          el('span', { class: 'stk-pick-text', text: s.text }),
+          order ? el('b', { class: 'stk-pick-no', text: String(order) }) : '',
+        ]);
+        btn.addEventListener('click', () => {
+          if (order) d.stickers = d.stickers.filter((x) => x !== s.id);
+          else if (d.stickers.length >= STICKER_MAX) return toast(`Chọn tối đa ${STICKER_MAX} sticker thôi nha, bỏ bớt một cái trước.`);
+          else d.stickers = [...d.stickers, s.id];
+          scheduleSave();
+          render();
+        });
+        return btn;
+      }),
+    );
+    note.textContent = d.stickers.length
+      ? `Đã chọn ${d.stickers.length}/${STICKER_MAX}. Sticker 1 bật ra khi mở thiệp, 2 khi người ấy bấm "Có" (hoặc giữa thiệp), 3 ở cuối thiệp.`
+      : `Chọn tối đa ${STICKER_MAX} sticker, chúng sẽ bật ra kèm tiếng "pop" trong thiệp.`;
+  };
+  render();
+  return el('div', { class: 'fx-section' }, [
+    el('h2', { text: '🧸 Sticker dễ thương' }),
+    note,
+    grid,
+    el('p', { class: 'muted small stk-credit', text: 'Sticker: Noto Emoji Animation (Google), CC BY 4.0.' }),
   ]);
 }
 

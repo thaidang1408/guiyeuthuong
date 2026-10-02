@@ -1,0 +1,27 @@
+{
+  "name": "Gửi Yêu Thương",
+  "short_name": "Gửi Yêu Thương",
+  "description": "Thiệp và lời nhắn tương tác dạng link",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff4ee",
+  "theme_color": "#ff7d8e",
+  "lang": "vi",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

@@ -213,3 +213,13 @@
 .premium-tag { display: inline-block; margin: 2px 0; padding: 2px 8px; border-radius: 999px; background: #fff1d6; color: #9a5b00; font-size: 0.72rem; font-weight: 800; white-space: nowrap; vertical-align: middle; }
 .opt-text .premium-tag { justify-self: start; }
 .plan-option.recommended { border-color: var(--coral); box-shadow: 0 0 0 2px rgba(255, 90, 110, 0.18); }
+
+/* Chọn sticker */
+.stk-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 8px; }
+.stk-pick { position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 4px 6px; border-radius: 16px; border: 1.5px solid var(--line, #f0d6d6); background: #fff; font: inherit; color: inherit; }
+.stk-pick img { width: 52px; height: 52px; }
+.stk-pick-text { font-size: 0.72rem; line-height: 1.2; text-align: center; color: var(--muted); }
+.stk-pick.selected { border-color: var(--coral); background: #fff5f6; }
+.stk-pick.selected .stk-pick-text { color: var(--wine); font-weight: 700; }
+.stk-pick-no { position: absolute; top: -6px; right: -6px; width: 22px; height: 22px; border-radius: 50%; background: var(--coral); color: #fff; font-size: 0.8rem; display: grid; place-items: center; }
+.stk-credit { margin-top: 6px; font-size: 0.72rem; }

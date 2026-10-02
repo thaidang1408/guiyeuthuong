@@ -6,6 +6,7 @@ import { GAMES, GAME_LIMITS } from '../../../public/js/shared/games.js';
 import { pickPronoun } from '../../../public/js/shared/pronouns.js';
 import { pickFont } from '../../../public/js/shared/fonts.js';
 import { openAtMs } from '../../../public/js/shared/schedule.js';
+import { pickStickers } from '../../../public/js/shared/stickers.js';
 import { badRequest } from './errors.ts';
 import { findBadWord } from './profanity.ts';
 
@@ -19,6 +20,8 @@ export interface CardData {
   pronoun: Pronoun;
   /** Mối quan hệ tự gõ khi chọn "Khác", ví dụ "Bà ngoại". */
   relationshipLabel?: string;
+  /** Sticker động bật ra trong thiệp (tối đa 3, theo thứ tự). */
+  stickers?: string[];
   music: string;
   /** Kiểu chữ (xem public/js/shared/fonts.js); '' = mặc định "Mềm mại". */
   font?: string;
@@ -214,6 +217,7 @@ export function validateCardData(templateId: string, raw: unknown): CardData {
     together: input.together === true,
     reactionCam: input.reactionCam === true,
     voice: input.voice === true,
+    stickers: pickStickers(input.stickers),
     texts,
   };
 }

@@ -102,3 +102,6 @@
 .upsell-panel { display: grid; gap: 6px; border: 1.5px dashed #f0b44c; background: linear-gradient(160deg, #fff9ea, #fff1ee); }
 .upsell-panel p, .upsell-panel ul { margin: 0; }
 .upsell-panel .btn { justify-self: start; }
+
+.answer-sticker { display: flex; align-items: center; gap: 12px; }
+.answer-sticker img { flex: none; }

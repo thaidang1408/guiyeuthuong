@@ -1,7 +1,7 @@
 // Nút "Giả lập tiền về" chỉ được phép chạy ở máy.
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { type Env, devToolsEnabled } from '../functions/_lib/env.ts';
+import { type Env, devToolsEnabled, isLocalHost } from '../functions/_lib/env.ts';
 import { CardService } from '../functions/_lib/services/card-service.ts';
 import { DevPaymentSimulator } from '../functions/_lib/services/dev-payment-simulator.ts';
 import { PaymentService } from '../functions/_lib/services/payment-service.ts';
@@ -16,6 +16,17 @@ describe('khóa an toàn của công cụ thử nghiệm', () => {
     assert.equal(devToolsEnabled(env({ DEV_SIMULATE_PAYMENT: '1' })), false);
     assert.equal(devToolsEnabled(env({ DEV_SIMULATE_PAYMENT: '0', CF_PAGES_BRANCH: 'local' })), false);
     assert.equal(devToolsEnabled(env({ CF_PAGES_BRANCH: 'local' })), false);
+    // Thư mục là kho git: wrangler đặt tên nhánh thật ("main") → nhận biết "ở máy" qua địa chỉ trang.
+    const req = (url: string) => new Request(url);
+    const flag = env({ DEV_SIMULATE_PAYMENT: '1', CF_PAGES_BRANCH: 'main' });
+    assert.equal(devToolsEnabled(flag, req('http://127.0.0.1:8790/api/dev/gia-lap')), true);
+    assert.equal(devToolsEnabled(flag, req('http://localhost:8788/')), true);
+    assert.equal(devToolsEnabled(flag, req('http://192.168.1.20:8788/')), true); // thử bằng điện thoại cùng Wi-Fi
+    assert.equal(devToolsEnabled(flag, req('https://guiyeuthuong.pages.dev/api/dev/gia-lap')), false);
+    assert.equal(devToolsEnabled(env({ CF_PAGES_BRANCH: 'main' }), req('http://127.0.0.1:8790/')), false); // thiếu cờ
+    for (const host of ['https://127.0.0.1.evil.com/', 'https://localhost.pages.dev/', 'https://172.15.0.1/', 'https://8.8.8.8/']) {
+      assert.equal(isLocalHost(req(host)), false, host);
+    }
   });
 });
 

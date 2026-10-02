@@ -6,8 +6,8 @@ import { json } from '../../_lib/http/responses.ts';
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   // Trên Cloudflare thật: giả vờ như đường dẫn này không tồn tại.
-  if (!devToolsEnabled(env)) return json({ error: 'Không tìm thấy.' }, 404);
+  if (!devToolsEnabled(env, request)) return json({ error: 'Không tìm thấy.' }, 404);
   const body = await readJson(request);
   const mode = body.mode === 'thieu' ? 'thieu' : 'du';
-  return json(await buildServices(env).devSimulator.simulate(String(body.code ?? ''), mode));
+  return json(await buildServices(env, request).devSimulator.simulate(String(body.code ?? ''), mode));
 };

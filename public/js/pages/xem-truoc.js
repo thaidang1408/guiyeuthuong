@@ -166,6 +166,7 @@ async function start() {
       ...(pickId(BACKGROUNDS, 'nen') !== undefined && { bg: pickId(BACKGROUNDS, 'nen') }),
     };
     if (pickId(GAMES, 'choi')) data.game = { ...defaultGame(), id: pickId(GAMES, 'choi') };
+    data.stickers = ['iu', 'thuong'];
     return mountCard(root, { template: demoId, data, imageUrls: [] }, { preview: true, backHref: '/#mau-thiep', backText: '← Mẫu khác', useHref: `/tao?mau=${demoId}` });
   }
 

@@ -1,4 +1,11 @@
 // Tạo phần tử HTML an toàn: chữ luôn gán bằng textContent, KHÔNG BAO GIỜ dùng innerHTML.
+import { canonicalUrl } from '../shared/site.js';
+
+// Mọi trang đều dùng file này, nên chuyển hướng ở đây: ai mở link phiên bản (có mã phía trước, ví dụ
+// 095f7b5a.guiyeuthuong.pages.dev) được đưa về địa chỉ chính thức — trông tin cậy hơn, luôn chạy bản mới nhất,
+// và link thiệp tạo ra không bị dính địa chỉ cũ. Phần # (mã sửa thiệp…) được giữ nguyên.
+const canonical = typeof location !== 'undefined' ? canonicalUrl(location.href) : null;
+if (canonical) location.replace(canonical);
 
 /**
  * el('button', { class: 'btn', text: 'Có', attrs: { type: 'button' }, on: { click: fn } }, [children])

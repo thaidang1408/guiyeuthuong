@@ -11,6 +11,7 @@ import { encodeOrderHash, manageLink, saveOrderInfo } from '../core/order-store.
 import { GUARANTEE, PLANS, UPGRADE, formatVnd, upgradePrice, withinGuarantee } from '../shared/plans.js';
 import { quizVerdict } from '../shared/games.js';
 import { COMMON_FIELDS, TEMPLATES } from '../shared/templates.js';
+import { stickerById, stickerSrc } from '../shared/stickers.js';
 
 const app = qs('#app');
 const slug = location.pathname.split('/')[2] || '';
@@ -117,6 +118,14 @@ function responsesPanel(card) {
         ])
       : r.kind === 'cau-do'
       ? quizResult(card, r)
+      : r.kind === 'sticker'
+      ? el('div', { class: 'answer-item answer-sticker' }, [
+          el('img', { attrs: { src: stickerSrc(r.id), alt: stickerById(r.id)?.emoji || '', width: '64', height: '64' } }),
+          el('div', {}, [
+            el('p', { class: 'answer-main' }, [el('strong', { text: `Thả sticker “${stickerById(r.id)?.text || ''}”` })]),
+            el('p', { class: 'muted small', text: `Lúc ${when(r.createdAt)}` }),
+          ]),
+        ])
       : r.kind === 'reply'
       ? el('div', { class: 'answer-item' }, [
           el('p', { class: 'answer-note', text: `💌 “${r.text}”` }),
@@ -363,7 +372,7 @@ function render(card) {
     children.push(sharePanel({ slug, plan: card.plan, recipientName: card.data.recipientName, senderName: card.data.senderName }));
     children.push(reactionsPanel(card));
     children.push(...specialPanels(card));
-    if (card.responses.length || card.template === 'di-choi' || card.data.game?.id) children.push(responsesPanel(card));
+    children.push(responsesPanel(card)); // thư đáp lại, sticker, câu trả lời, kết quả trò chơi
     if (card.plan === 'combo') children.push(comboPanel(token));
     if (card.paidOrder && withinGuarantee(card.plan, card.paidOrder.paidAt)) children.push(refundPanel(card));
     if (card.canEdit) children.push(editForm(card));

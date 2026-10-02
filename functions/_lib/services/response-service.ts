@@ -5,6 +5,7 @@ import { badRequest, notFound, tooMany } from '../domain/errors.ts';
 import { findBadWord } from '../domain/profanity.ts';
 import type { CardRecord, CardRepository, RateLimitRepository, ResponseRepository } from '../repositories/interfaces.ts';
 import type { CardService } from './card-service.ts';
+import { REPLY_STICKERS } from '../../../public/js/shared/stickers.js';
 
 /** Mẫu thiệp có ô trả lời (chọn ngày, món) cho người nhận. */
 export const ANSWERABLE_TEMPLATES = new Set(['di-choi']);
@@ -24,6 +25,7 @@ export interface ResponseServiceDeps {
 export type ResponseView =
   | ({ kind: 'di-choi'; createdAt: number } & DiChoiAnswer)
   | { kind: 'reply'; text: string; createdAt: number }
+  | { kind: 'sticker'; id: string; createdAt: number }
   | { kind: 'vong-quay'; index: number; prize: string; createdAt: number }
   | { kind: 'cau-do'; answers: number[]; score: number; total: number; createdAt: number };
 
@@ -76,6 +78,15 @@ export class ResponseService {
     const now = this.deps.now();
     await this.checkLimits(card, clientIp, now);
     await this.deps.responses.insert(card.id, JSON.stringify({ kind: 'reply', text }), now);
+  }
+
+  /** Người nhận thả một sticker đáp lại (mọi mẫu). */
+  async sticker(slug: unknown, id: unknown, clientIp: string): Promise<void> {
+    const card = await this.activeCard(slug);
+    if (typeof id !== 'string' || !REPLY_STICKERS.includes(id)) throw badRequest('Sticker không hợp lệ.');
+    const now = this.deps.now();
+    await this.checkLimits(card, clientIp, now);
+    await this.deps.responses.insert(card.id, JSON.stringify({ kind: 'sticker', id }), now);
   }
 
   /**
@@ -135,6 +146,7 @@ export class ResponseService {
     return rows.map((r): ResponseView => {
       const v = JSON.parse(r.answerJson);
       if (v.kind === 'reply') return { kind: 'reply', text: String(v.text), createdAt: r.createdAt };
+      if (v.kind === 'sticker') return { kind: 'sticker', id: String(v.id), createdAt: r.createdAt };
       if (v.kind === 'vong-quay') return { kind: 'vong-quay', index: v.index, prize: String(v.prize), createdAt: r.createdAt };
       if (v.kind === 'cau-do') return { kind: 'cau-do', answers: v.answers, score: v.score, total: v.total, createdAt: r.createdAt };
       return { kind: 'di-choi', ...(v as DiChoiAnswer), createdAt: r.createdAt };

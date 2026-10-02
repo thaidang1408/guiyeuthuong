@@ -76,6 +76,33 @@ describe('Phản ứng và thư đáp lại', () => {
   });
 });
 
+describe('Sticker', () => {
+  it('người tạo gắn tối đa 3 sticker hợp lệ, không trùng', () => {
+    const base = { recipientName: 'Linh', senderName: 'Minh', texts: {} };
+    assert.deepEqual(validateCardData('to-tinh', { ...base, stickers: ['iu', 'iu', 'hack', 'moa', 'thuong', 'me'] }).stickers, ['iu', 'moa', 'thuong']);
+    assert.deepEqual(validateCardData('to-tinh', { ...base, stickers: 'iu' }).stickers, []);
+  });
+
+  it('người nhận thả sticker đáp lại, người tạo xem ở trang quản lý', async () => {
+    const { responses, manage, create } = setup();
+    const res = await create('to-tinh');
+    await responses.sticker(res.slug, 'rung-rung', 'a');
+    await assert.rejects(responses.sticker(res.slug, 'hack', 'a'), /không hợp lệ/);
+    await assert.rejects(responses.sticker(res.slug, 'doi', 'a'), /không hợp lệ/); // không có trong bộ đáp lại
+    const view = await manage.getView(res.slug, res.editToken);
+    assert.deepEqual(view.responses, [{ kind: 'sticker', id: 'rung-rung', createdAt: NOW }]);
+  });
+
+  it('mỗi sticker đều có đủ file ảnh động và ảnh tĩnh', async () => {
+    const { existsSync } = await import('node:fs');
+    const { STICKERS, REPLY_STICKERS, stickerSrc } = await import('../public/js/shared/stickers.js');
+    for (const s of STICKERS) {
+      for (const still of [false, true]) assert.ok(existsSync(new URL(`../public${stickerSrc(s.id, still)}`, import.meta.url)), `${s.id} ${still}`);
+    }
+    for (const id of REPLY_STICKERS) assert.ok(STICKERS.some((s) => s.id === id), id);
+  });
+});
+
 describe('Thiệp nhóm', () => {
   it('thành viên ký bằng link mời (kể cả khi chưa thanh toán), người nhận thấy lời chúc, người tổ chức xóa được', async () => {
     const { db, clock, cardService, manage, group, create } = setup();

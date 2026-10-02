@@ -1,5 +1,6 @@
 // "Biên lai tình yêu": vẽ một tờ hóa đơn in nhiệt vui nhộn lên canvas để người nhận lưu/chia sẻ lên story.
 // Mỗi lần được chia sẻ là một lần web được giới thiệu (có tên web ở cuối biên lai).
+import { SITE_HOST } from '../shared/site.js';
 
 const W = 720;
 const PAD = 56;
@@ -123,7 +124,7 @@ export async function drawReceipt(spec) {
   y += 50;
   center('Cảm ơn quý khách đã thương 💗', y, `400 24px ${FONT}`, '#777');
   y += 40;
-  center('Tạo thiệp của bạn: guiyeuthuong.pages.dev', y, `700 24px ${FONT}`, '#e5487a');
+  center(`Tạo thiệp của bạn: ${SITE_HOST}`, y, `700 24px ${FONT}`, '#e5487a');
   return canvas;
 }
 

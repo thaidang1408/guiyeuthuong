@@ -3,6 +3,7 @@
 import { buildServices } from '../_lib/container.ts';
 import type { Env } from '../_lib/env.ts';
 import { CARD_PAGE_CSP, jsonForHtml } from '../_lib/http/responses.ts';
+import { canonicalUrl } from '../../public/js/shared/site.js';
 
 export const onRequestGet: PagesFunction<Env> = async ({ request, params, env }) => {
   // ?cung=gui: người tạo mở phía mình của thiệp "Mở cùng nhau" — không tính là người nhận đã mở.
@@ -11,7 +12,8 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, params, env })
   const shell = await env.ASSETS.fetch(new URL('/thiep', request.url));
 
   // Ảnh xem trước khi gửi link qua Zalo/Messenger: phải là địa chỉ đầy đủ. Tiêu đề có tên người nhận cho thân mật.
-  const origin = new URL(request.url).origin;
+  // Link phiên bản (có mã phía trước) → ảnh xem trước vẫn dùng địa chỉ chính thức.
+  const origin = new URL(canonicalUrl(request.url) ?? request.url).origin;
   const ogTitle = card ? `💌 ${card.data.recipientName} ơi, có một tấm thiệp cho bạn` : null;
   const page = new HTMLRewriter()
     .on('meta[property="og:image"]', {

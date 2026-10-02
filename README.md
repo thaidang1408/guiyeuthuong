@@ -194,6 +194,23 @@ Xem thử: `/xem-truoc?demo=to-tinh&mo=hop-qua`.
 
 **Quay video:** nút "🎥 Lưu video 8 giây" trong thiệp hiệu ứng (trừ "Trái tim kỷ niệm"), chỉ có ở thiệp thật, không có ở bản xem thử. Video có tên web ở cuối, để người nhận đăng story/TikTok. Trình duyệt quá cũ không hỗ trợ thì nút tự ẩn.
 
+### Sticker dễ thương (`public/js/shared/stickers.js`, `public/js/card/stickers.js`)
+- Người tạo chọn tối đa 3 sticker ở bước 3. Trong thiệp: sticker 1 bật khi mở thiệp, 2 khi bấm "Có"/"Tha" (hoặc sau 9 giây),
+  còn lại ở cuối thiệp. Bật to kèm câu chữ + tiếng "pop", rồi nép vào mép phải; chạm vào là nảy lên.
+- Cuối thiệp người nhận "thả một sticker" đáp lại; người tạo xem ở trang quản lý (mục "nhắn lại").
+- Ảnh: emoji động **Noto Emoji Animation** của Google, giấy phép **CC BY 4.0** (đã ghi nguồn ở trang Điều khoản và dưới khung chọn).
+  Không dùng sticker/meme có bản quyền (Zalo, LINE, nhân vật hoạt hình, ảnh người thật).
+- Thêm sticker: tải `https://fonts.gstatic.com/s/e/notoemoji/latest/<mã emoji>/512.gif`, nén bằng ffmpeg rồi thêm một dòng vào `STICKERS`:
+  `ffmpeg -i 512.gif -vf "fps=12,scale=120:120:flags=lanczos" -c:v libwebp_anim -q:v 40 -loop 0 public/stickers/<id>.webp`
+  và ảnh tĩnh `-vf "select=eq(n\,12),scale=96:96" -frames:v 1 public/stickers/<id>-tinh.webp`.
+
+### Logo và địa chỉ chính thức
+- Logo trên tab trình duyệt: `public/favicon.svg` (bản gốc), kèm `favicon.ico`, `favicon-32.png`, `apple-touch-icon.png`,
+  `icon-192/512.png` và `site.webmanifest` (khi khách "Thêm vào màn hình chính").
+- Mỗi lần deploy Cloudflare tạo thêm link có mã phía trước (ví dụ `095f7b5a.guiyeuthuong.pages.dev`), link này chạy mãi bản cũ.
+  Web tự chuyển các link đó về `guiyeuthuong.pages.dev` (`public/js/shared/site.js`). **Luôn gửi khách link không có mã.**
+  Mua tên miền riêng sau này thì đổi `SITE_HOST` trong file đó.
+
 ### Trò chơi cuối thiệp (`public/js/shared/games.js`, `public/js/fx/games.js`)
 
 | Trò | Cách chạy | Người tạo thấy gì |

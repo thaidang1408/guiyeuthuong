@@ -1,6 +1,6 @@
 // Nơi "lắp ráp" các lớp: tạo repository từ D1 rồi đưa vào service.
 // Route chỉ cần gọi buildServices(env) để có service dùng.
-import { type Env, devToolsEnabled } from './env.ts';
+import { type Env, devToolsEnabled, isLocalRun } from './env.ts';
 import { D1AdminRepository } from './repositories/d1-admin-repository.ts';
 import { D1CardRepository } from './repositories/d1-card-repository.ts';
 import { D1ExtrasRepository } from './repositories/d1-extras-repository.ts';
@@ -26,7 +26,8 @@ import { PaymentSyncService } from './services/payment-sync-service.ts';
 import { ReportService } from './services/report-service.ts';
 import { ResponseService } from './services/response-service.ts';
 
-export function buildServices(env: Env) {
+/** request (không bắt buộc): để nhận biết đang chạy ở máy theo địa chỉ trang (xem isLocalHost). */
+export function buildServices(env: Env, request?: Request) {
   const now = () => Date.now();
   const cards = new D1CardRepository(env.DB);
   const orders = new D1OrderRepository(env.DB);
@@ -48,7 +49,7 @@ export function buildServices(env: Env) {
     cards,
     now,
     account: env.SEPAY_ACC && env.SEPAY_BANK ? { acc: env.SEPAY_ACC, bank: env.SEPAY_BANK } : null,
-    devSimulate: devToolsEnabled(env),
+    devSimulate: devToolsEnabled(env, request),
     rateLimits,
   });
   return {
@@ -75,7 +76,7 @@ export function buildServices(env: Env) {
       rateLimits,
       now,
       password: env.ADMIN_PASSWORD,
-      isLocal: env.CF_PAGES_BRANCH === 'local',
+      isLocal: isLocalRun(env, request),
     }),
     reportService: new ReportService({ cardService, reports: new D1ReportRepository(env.DB), rateLimits, now }),
   };

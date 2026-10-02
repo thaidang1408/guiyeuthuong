@@ -1,6 +1,8 @@
 // Khung cuối thiệp: "biên lai" để lưu/chia sẻ + ô viết thư đáp lại người gửi + lời mời tạo thiệp đáp lại.
 // Đây là vòng lan truyền: người nhận đăng biên lai lên story, hoặc tạo thiệp gửi ngược lại.
-import { replyCard } from '../core/api.js';
+import { replyCard, sendSticker } from '../core/api.js';
+import { REPLY_STICKERS, stickerById } from '../shared/stickers.js';
+import { stickerReplyRow } from './stickers.js';
 import { el, toast } from '../core/dom.js';
 import { downloadCanvas } from '../core/link-qr.js';
 import { drawReceipt } from '../core/receipt.js';
@@ -10,7 +12,7 @@ export function endPanel(card, { preview, receiptSpec }) {
   const sender = card.data.senderName;
   const panel = el('section', { class: 'end-panel' });
   if (receiptSpec) panel.append(receiptBlock(receiptSpec));
-  panel.append(replyBlock(card, sender, preview));
+  panel.append(stickerBlock(card, sender, preview), replyBlock(card, sender, preview));
   panel.append(
     el('div', { class: 'end-cta' }, [
       el('p', { class: 'small', text: `Đến lượt bạn làm ${sender} bất ngờ nè 💝` }),
@@ -61,6 +63,19 @@ function receiptBlock(spec) {
     });
     imgWrap.replaceChildren(img, el('p', { class: 'muted small center', text: 'Mở trong Zalo/Messenger: nhấn giữ vào ảnh để lưu.' }), actions);
   });
+  return block;
+}
+
+/** Một chạm là đáp lại: thả sticker cho người gửi (xem ở trang quản lý). */
+function stickerBlock(card, sender, preview) {
+  const block = el('div', { class: 'end-block' }, [el('h3', { text: `Thả một sticker cho ${sender} nè 👇` })]);
+  block.append(
+    stickerReplyRow(REPLY_STICKERS, async (id) => {
+      if (preview) toast('Bản xem thử: sticker chưa được gửi đi 😉', 3000);
+      else await sendSticker(card.slug, id).catch((e) => (toast(e.message, 4000), Promise.reject(e)));
+      block.append(el('p', { class: 'end-sent', text: `Đã thả ${stickerById(id).emoji} cho ${sender} ✓` }));
+    }),
+  );
   return block;
 }
 

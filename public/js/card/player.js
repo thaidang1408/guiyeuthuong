@@ -87,9 +87,16 @@ export async function mountCard(root, card, { preview = false, backHref, backTex
     skipNextIntro();
   }
 
+  // Sticker người tạo chọn: cái 1 bật khi mở thiệp, cái 2 khi bấm "Có"/"Tha" (hoặc sau vài giây), còn lại ở cuối thiệp.
+  const stickerIds = card.data.stickers || [];
+  const stickers = stickerIds.length ? (await import('./stickers.js')).stickerLayer(stickerIds) : null;
+  let stickerTimer = 0;
+
   let reaction = null; // { noPresses, thinkMs, extra } khi người nhận bấm "Có"/"Tha"/hoàn thành
   const react = (stats = {}) => {
     if (reaction) return;
+    clearTimeout(stickerTimer);
+    setTimeout(() => stickers?.next(), 1200);
     reaction = { noPresses: stats.noPresses ?? 0, thinkMs: stats.thinkMs ?? 0, extra: stats.extra ?? {} };
     if (!preview) reactCard(card.slug, { noPresses: reaction.noPresses, thinkMs: reaction.thinkMs }).catch(() => {});
   };
@@ -101,11 +108,17 @@ export async function mountCard(root, card, { preview = false, backHref, backTex
     preview,
     imageUrls: card.imageUrls,
     signatures: card.signatures ?? (preview ? DEMO_SIGNATURES : []),
-    onStart: () => music.start(),
+    onStart: () => {
+      music.start();
+      if (!stickers) return;
+      setTimeout(() => stickers.next(), 900);
+      stickerTimer = setTimeout(() => stickers.next(), 9000);
+    },
     onYes: react,
     onFinish: () => {
       react(); // mẫu không có câu hỏi: xem hết thiệp cũng là một phản ứng
       footer.classList.add('shown');
+      setTimeout(() => stickers?.rest(), 2500);
       // Lời nhắn giọng nói: hiện ngay sau thiệp, trước trò chơi.
       const voiceSrc = card.voiceUrl || (card.data.voice && card.slug ? `/api/giong-noi/${encodeURIComponent(card.slug)}` : null);
       if (voiceSrc) {

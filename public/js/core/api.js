@@ -88,6 +88,7 @@ export const reactCard = (slug, stats) => postJson(`/api/phan-ung/${encodeURICom
 
 /** Thư đáp lại của người nhận. */
 export const replyCard = (slug, text) => postJson(`/api/dap-lai/${encodeURIComponent(slug)}`, { text });
+export const sendSticker = (slug, id) => postJson(`/api/sticker/${encodeURIComponent(slug)}`, { id });
 
 /** Trang ký tên thiệp nhóm. */
 export const groupInfo = (slug, token) => postJson(`/api/ky/${encodeURIComponent(slug)}`, { token, action: 'info' });
